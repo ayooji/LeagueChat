@@ -1,6 +1,6 @@
 # **LeagueChat: A Real-Time Communication Platform for Fantasy Football Leagues**
 
-Welcome to **LeagueChat**, a modern, real-time communication platform designed for dynamic collaboration within **fantasy football leagues**. LeagueChat offers users a seamless and customizable chat experience. Whether you're strategizing for your next draft or trash-talking your league mates, DraftRoom keeps your conversations organized and engaging.
+Welcome to **LeagueChat**, a modern, real-time communication platform designed for dynamic collaboration within **fantasy football leagues**. LeagueChat offers users a seamless and customizable chat experience. Whether you're strategizing for your next draft or trash-talking your league mates, LeagueChat keeps your conversations organized and engaging.
 
 ---
 
