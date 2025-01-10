@@ -52,34 +52,35 @@ const Step1 = () => {
   return (
     <>
       <Typography
-        text='What is the name of your company or team'
-        className='my-4'
+        text="Create Your League"
+        className="text-2xl font-bold text-center text-gray-800 mb-4"
       />
 
       <Typography
-        text='This will be the name of your Slackzz workspace - choose something that your team will recognize.'
-        className='text-neutral-300'
-        variant='p'
+        text="Give your league a unique name that your team will recognize."
+        className="text-gray-600 text-center mb-6"
+        variant="p"
       />
 
-      <form className='mt-6'>
+      <form className="space-y-6">
         <fieldset>
           <Input
-            className='bg-neutral-700 text-white border-neutral-600'
-            type='text'
+            className="bg-gray-100 text-gray-800 border border-gray-300 rounded-lg p-3 w-full"
+            type="text"
             value={name}
-            placeholder='Enter your company name'
-            onChange={event => updateValues({ name: event.target.value })}
+            placeholder="Enter your league name"
+            onChange={(event) => updateValues({ name: event.target.value })}
           />
-          <Button
-            type='button'
-            className='mt-10'
-            onClick={() => setCurrStep(2)}
-            disabled={!name}
-          >
-            <Typography text='Next' variant='p' />
-          </Button>
         </fieldset>
+
+        <Button
+          type="button"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg"
+          onClick={() => setCurrStep(2)}
+          disabled={!name}
+        >
+          Next Step
+        </Button>
       </form>
     </>
   );
@@ -108,53 +109,57 @@ const Step2 = () => {
   return (
     <>
       <Button
-        size='sm'
-        className='text-white'
-        variant='link'
+        size="sm"
+        className="text-blue-600 hover:underline mb-4"
+        variant="link"
         onClick={() => setCurrStep(1)}
       >
-        <Typography text='Back' variant='p' />
+        Back
       </Button>
 
       <form>
-        <Typography text='Add workspace avatar' className='my-4' />
         <Typography
-          text='This image can be changed later in your workspace settings.'
-          className='text-neutral-300'
-          variant='p'
+          text="Upload League Image"
+          className="text-2xl font-bold text-center text-gray-800 mb-4"
+        />
+        <Typography
+          text="This image will represent your league and can be changed later."
+          className="text-gray-600 text-center mb-6"
+          variant="p"
         />
 
         <fieldset
           disabled={isSubmitting}
-          className='mt-6 flex flex-col items-center space-y-9'
+          className="flex flex-col items-center space-y-9"
         >
           <ImageUpload />
-          <div className='space-x-5'>
+          <div className="space-x-5">
             <Button
               onClick={() => {
                 updateImageUrl('');
                 handleSubmit();
               }}
+              className="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg"
             >
-              <Typography text='Skip for now' variant='p' />
+              Skip for Now
             </Button>
 
             {imageUrl ? (
               <Button
-                type='button'
+                type="button"
                 onClick={handleSubmit}
-                size='sm'
-                variant='destructive'
+                size="sm"
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
               >
-                <Typography text='Submit' variant='p' />
+                Create League
               </Button>
             ) : (
               <Button
-                type='button'
-                size='sm'
-                className='text-white bg-gray-500'
+                type="button"
+                size="sm"
+                className="bg-gray-500 text-white px-4 py-2 rounded-lg"
               >
-                <Typography text='Select an Image' variant='p' />
+                Select an Image
               </Button>
             )}
           </div>

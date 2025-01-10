@@ -20,6 +20,14 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/league/:path*',
+        destination: '/workspace/:path*',
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import { RiHome2Fill } from 'react-icons/ri';
 import { PiChatsTeardrop } from 'react-icons/pi';
+import { useRouter } from 'next/navigation';
 
 import { Workspace } from '@/types/app';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -13,7 +14,6 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import CreateWorkspace from '@/components/create-workspace';
-import { useRouter } from 'next/navigation';
 import ProgressBar from './progress-bar';
 import { cn } from '@/lib/utils';
 import { useColorPrefrences } from '@/providers/color-prefrences';
@@ -33,6 +33,7 @@ const SidebarNav: FC<SidebarNavProps> = ({
   const [switchingWorkspace, setSwitchingWorkspace] = useState(false);
   const { color } = useColorPrefrences();
 
+  // Updated background color
   let backgroundColor = 'bg-primary-dark';
   if (color === 'green') {
     backgroundColor = 'bg-green-700';
@@ -40,12 +41,14 @@ const SidebarNav: FC<SidebarNavProps> = ({
     backgroundColor = 'bg-blue-700';
   }
 
+  // Function to switch workspaces
   const switchWorkspace = (id: string) => {
     setSwitchingWorkspace(true);
     router.push(`/workspace/${id}`);
-    setSwitchingWorkspace(true);
+    setSwitchingWorkspace(false);
   };
 
+  // Function to copy invite link
   const copyInviteLink = (inviteCode: string) => {
     const currentDomain = window.location.origin;
 
@@ -56,36 +59,65 @@ const SidebarNav: FC<SidebarNavProps> = ({
     toast.success('Invite link copied to clipboard');
   };
 
+  // New function: Redirect to Home when Home icon is clicked
+  const goToHome = () => {
+    router.push('/');
+  };
+
   return (
-    <nav>
-      <ul className='flex flex-col space-y-4'>
+    <nav className="bg-dark-gradient h-full p-4 rounded-lg">
+      <ul className="flex flex-col space-y-6">
+        {/* Home Icon */}
         <li>
-          <div className='cursor-pointer items-center text-white mb-4 w-10 h-10 rounded-lg overflow-hidden'>
+          <div
+            className="flex flex-col items-center cursor-pointer group text-white hover:text-green-400"
+            onClick={goToHome}
+          >
+            <div className="p-2 rounded-lg bg-[rgba(255,255,255,0.1)] group-hover:bg-green-500 transition-all duration-300">
+              <RiHome2Fill size={24} className="group-hover:scale-125" />
+            </div>
+            <Typography variant="p" text="Home" className="text-sm" />
+          </div>
+        </li>
+
+        {/* Direct Messages Icon */}
+        <li>
+          <div className="flex flex-col items-center cursor-pointer group text-white hover:text-green-400">
+            <div className="p-2 rounded-lg bg-[rgba(255,255,255,0.1)] group-hover:bg-green-500 transition-all duration-300">
+              <PiChatsTeardrop size={24} className="group-hover:scale-125" />
+            </div>
+            <Typography variant="p" text="Dms" className="text-sm" />
+          </div>
+        </li>
+
+        {/* Workspace Popover */}
+        <li>
+          <div className="cursor-pointer items-center text-white w-10 h-10 rounded-lg overflow-hidden">
             <Popover>
               <PopoverTrigger>
                 <Avatar>
                   <AvatarImage
                     src={currentWorkspaceData.image_url || ''}
                     alt={currentWorkspaceData.name}
-                    className='object-cover w-full h-full'
+                    className="object-cover w-full h-full"
                   />
-                  <AvatarFallback className='bg-neutral-700'>
+                  <AvatarFallback className="bg-neutral-700">
                     <Typography
-                      variant='p'
+                      variant="p"
                       text={currentWorkspaceData.name.slice(0, 2)}
                     />
                   </AvatarFallback>
                 </Avatar>
               </PopoverTrigger>
-              <PopoverContent className='p-0' side='bottom'>
-                <Card className='w-[350px] border-0'>
-                  <CardContent className='flex p-0 flex-col'>
+              <PopoverContent className="p-0" side="bottom">
+                <Card className="w-[350px] border-0">
+                  <CardContent className="flex p-0 flex-col">
                     {switchingWorkspace ? (
-                      <div className='m-2'>
+                      <div className="m-2">
                         <ProgressBar />
                       </div>
                     ) : (
-                      userWorkspacesData.map(workspace => {
+                      userWorkspacesData.map((workspace) => {
                         const isActive =
                           workspace.id === currentWorkspaceData.id;
 
@@ -94,7 +126,7 @@ const SidebarNav: FC<SidebarNavProps> = ({
                             key={workspace.id}
                             className={cn(
                               isActive && `${backgroundColor} text-white`,
-                              'cursor-pointer px-2 py-1 flex gap-2'
+                              'cursor-pointer px-4 py-2 flex items-center gap-4 rounded-lg hover:bg-green-500'
                             )}
                             onClick={() =>
                               !isActive && switchWorkspace(workspace.id)
@@ -104,26 +136,26 @@ const SidebarNav: FC<SidebarNavProps> = ({
                               <AvatarImage
                                 src={workspace.image_url || ''}
                                 alt={workspace.name}
-                                className='object-cover w-full h-full'
+                                className="object-cover w-10 h-10 rounded-lg"
                               />
                               <AvatarFallback>
                                 <Typography
-                                  variant='p'
+                                  variant="p"
                                   text={workspace.name.slice(0, 2)}
                                 />
                               </AvatarFallback>
                             </Avatar>
                             <div>
                               <Typography
-                                variant='p'
+                                variant="p"
                                 text={workspace.name}
-                                className='text-sm'
+                                className="text-sm"
                               />
-                              <div className='flex items-center gap-x-2'>
+                              <div className="flex items-center gap-x-2">
                                 <Typography
-                                  variant='p'
-                                  text='Copy Invite Link'
-                                  className='text-xs lg:text-xs'
+                                  variant="p"
+                                  text="Copy Invite Link"
+                                  className="text-xs"
                                 />
                                 <Copy
                                   onClick={() =>
@@ -143,36 +175,6 @@ const SidebarNav: FC<SidebarNavProps> = ({
                 </Card>
               </PopoverContent>
             </Popover>
-          </div>
-          <div className='flex flex-col items-center cursor-pointer group text-white'>
-            <div className='p-2 rounded-lg bg-[rgba(255,255,255,0.3)]'>
-              <RiHome2Fill
-                size={20}
-                className='group-hover:scale-125 transition-all duration-300'
-              />
-            </div>
-            <Typography
-              variant='p'
-              text='Home'
-              className='text-sm lg:text-sm md:text-sm'
-            />
-          </div>
-        </li>
-        <li>
-          <div className='flex flex-col cursor-pointer items-center group text-white'>
-            <div className='flex flex-col items-center cursor-pointer group text-white'>
-              <div className='p-2 rounded-lg bg-[rgba(255,255,255,0.3)]'>
-                <PiChatsTeardrop
-                  size={20}
-                  className='group-hover:scale-125 transition-all duration-300'
-                />
-              </div>
-              <Typography
-                variant='p'
-                text='Dms'
-                className='text-sm lg:text-sm md:text-sm'
-              />
-            </div>
           </div>
         </li>
       </ul>

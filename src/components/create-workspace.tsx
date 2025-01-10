@@ -67,7 +67,7 @@ const CreateWorkspace = () => {
     updateImageUrl('');
     setIsOpen(false);
     router.refresh();
-    toast.success('Workspace created successfully');
+    toast.success('League created successfully');
   }
 
   return (
@@ -80,13 +80,13 @@ const CreateWorkspace = () => {
           <Button variant='secondary'>
             <FaPlus />
           </Button>
-          <Typography variant='p' text='Add Workspace' />
+          <Typography variant='p' text='Add League' />
         </div>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle className='my-4'>
-            <Typography variant='h4' text='Create workspace' />
+            <Typography variant='h4' text='Create League' />
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
@@ -105,7 +105,7 @@ const CreateWorkspace = () => {
                   <FormDescription>
                     <Typography
                       variant='p'
-                      text='This is your workspace name'
+                      text='This is your League name'
                     />
                   </FormDescription>
                   <FormMessage />

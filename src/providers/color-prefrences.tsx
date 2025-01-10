@@ -9,7 +9,8 @@ import {
   useState,
 } from 'react';
 
-type Colors = 'blue' | 'green' | '';
+// Added new color option "dark-gradient"
+type Colors = 'blue' | 'green' | 'dark-gradient' | '';
 
 type ColorPrefrencesContext = {
   color: Colors;
@@ -27,7 +28,6 @@ export const useColorPrefrences = () => {
       'useColorPrefrences must be used within a ColorPrefrencesProvider'
     );
   }
-
   return context;
 };
 

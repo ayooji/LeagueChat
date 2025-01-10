@@ -10,8 +10,8 @@ const lato = Lato({
 });
 
 export const metadata: Metadata = {
-  title: 'Slackzz',
-  description: 'Slack clone codewithlari',
+  title: 'LeagueChat',
+  description: 'Powering Your Fantasy Football Conversations!',
 };
 
 export const revalidate = 0;
