@@ -22,14 +22,14 @@ const MainContent: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <div
       className={cn(
-        'md:px-4 md:pb-4 md:pt-16 md:h-screen transition-all duration-300',
+        'md:px-6 md:pb-6 md:pt-20 min-h-screen transition-all duration-300',
         backgroundColor
       )}
     >
       <main
         className={cn(
-          'md:ml-[280px] lg:ml-[420px] md:h-full overflow-y-hidden shadow-md rounded-lg p-6',
-          theme === 'dark' ? 'bg-[#1A1B1E]' : 'bg-white'
+          'md:ml-[280px] lg:ml-[420px] md:h-full overflow-y-auto shadow-lg rounded-xl p-8',
+          theme === 'dark' ? 'bg-[#121212] text-white' : 'bg-white text-gray-800'
         )}
       >
         {children}
